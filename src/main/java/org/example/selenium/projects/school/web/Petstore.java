@@ -31,8 +31,9 @@ public class Petstore extends TestAction {
                 .click("//input[@name=\"signon\"]");
         return this;
     }
-    public void signOut(){
+    public Petstore signOut(){
         pause(3000)
                 .click("//a[text()=\"Sign Out\"]");
+        return this;
     }
 }

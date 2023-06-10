@@ -6,7 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Properties;
 import java.util.function.Consumer;
 
@@ -37,9 +40,16 @@ public class TestAction {
         }
         return this;
     }
+//    public TestAction findIn(int second){
+//
+//        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("element-id")));
+//        return this;
+//    }
+
     public WebElement checkExisting(String path){
         try {
-            return this.driver.findElement(By.xpath(path));
+            WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
         }catch (NoSuchElementException e){
             PrintColor.yellow(String.format("Could not find %s", path));
         }
