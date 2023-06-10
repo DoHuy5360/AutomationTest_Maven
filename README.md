@@ -1,0 +1,1 @@
+This is Automation Test project with Maven
