@@ -40,12 +40,6 @@ public class TestAction {
         }
         return this;
     }
-//    public TestAction findIn(int second){
-//
-//        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("element-id")));
-//        return this;
-//    }
-
     public WebElement checkExisting(String path){
         try {
             WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
