@@ -1,14 +1,20 @@
 package org.example.selenium;
 
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.example.selenium.projects.school.web.Elearning;
 import org.example.selenium.utils.PrintColor;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -65,6 +71,68 @@ public class TestAction {
 
     public TestAction clear(String path) {
         checkExisting(path).clear();
+        return this;
+    }
+    public TestAction saveFile(String fileName, String xPath, String destPath)  {
+        try {
+            // Tìm đối tượng WebElement tương ứng với nút tải về hoặc link tải về
+            WebElement downloadLink = driver.findElement(By.xpath(xPath));
+
+            // Lấy đường dẫn file cần tải về
+            String fileUrlA = downloadLink.getAttribute("href");
+
+//            Path path = Paths.get(fileUrlA);
+//            String fileName = path.getFileName().toString();
+
+            // Tạo đối tượng URL từ đường dẫn file
+            URL url = new URL(fileUrlA);
+            InputStream inputStream = url.openStream();
+
+            // Lưu file vào thư mục mong muốn
+            FileOutputStream outputStream = new FileOutputStream(destPath + fileName);
+
+            byte[] buffer = new byte[2048];
+            int length = 0;
+            while ((length = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            outputStream.close();
+            inputStream.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public TestAction scrollTo(String xPath) {
+        // Thực hiện scroll đến cuối trang web
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        // Thực hiện scroll đến vị trí cụ thể trên trang web
+        WebElement element = checkExisting(xPath);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        return this;
+    }
+
+    public TestAction highlight(String xPath) {
+        // Tìm đối tượng element
+        WebElement element = checkExisting(xPath);
+
+        // Thực thi mã JavaScript để thay đổi thuộc tính CSS
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript("arguments[0].style.transition = '1000ms linear'", element);
+        js.executeScript("arguments[0].style.outline = '2px red dashed'", element);
+        return this;
+    }
+    public TestAction addCSS(String xPath, String attr, String val) {
+        // Tìm đối tượng element
+        WebElement element = checkExisting(xPath);
+
+        // Thực thi mã JavaScript để thay đổi thuộc tính CSS
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript(String.format("arguments[0].style.%s = '%s'", attr,val), element);
         return this;
     }
 }
