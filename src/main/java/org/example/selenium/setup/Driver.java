@@ -2,33 +2,26 @@ package org.example.selenium.setup;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.chromium.ChromiumOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
-public class Browser{
+public class Driver {
     static WebDriver driver;
     static MutableCapabilities mutableCapabilities = new MutableCapabilities();
-
     public void execute(Consumer<WebDriver> callback){
         callback.accept(driver);
     }
-    public Browser useEdge(){
+    public Driver useEdge(){
         WebDriverManager webDriverManager = WebDriverManager.edgedriver();
         webDriverManager.setup();
 
@@ -65,7 +58,7 @@ public class Browser{
         return this;
 
     }
-    public Browser useFirefox(){
+    public Driver useFirefox(){
         String downloadPath = "D:/Java/intellij/mavenProject/src/main/java/org/example/selenium/projects/files";
         WebDriverManager webDriverManager = WebDriverManager.firefoxdriver();
         webDriverManager.setup();
@@ -85,16 +78,15 @@ public class Browser{
 
         return this;
     }
+    public WebDriver useChrome() {
+        String downloadPath  = "D:\\Java\\intellij\\mavenProject\\src\\main\\java\\org\\example\\selenium\\projects\\files";
 
-    public Browser useChrome() {
         WebDriverManager.chromedriver().setup();
-
         ChromeOptions options = new ChromeOptions();
 
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
 
-        String downloadPath  = "D:\\Java\\intellij\\mavenProject\\src\\main\\java\\org\\example\\selenium\\projects\\files";
         chromePrefs.put("download.default_directory", downloadPath);
 
         options.setExperimentalOption("prefs", chromePrefs);
@@ -102,7 +94,7 @@ public class Browser{
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
-        return this;
+        return driver;
     }
 
 

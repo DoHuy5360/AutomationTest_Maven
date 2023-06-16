@@ -1,20 +1,20 @@
 package org.example.selenium.projects.school;
 
 import org.example.selenium.projects.school.web.Omayo;
-import org.example.selenium.setup.Browser;
+import org.example.selenium.setup.Driver;
 import org.example.selenium.setup.PropertiesFile;
+import org.openqa.selenium.WebDriver;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class LearningGathering {
-    static Properties properties = new PropertiesFile("config.properties").read();
+
+    static  Driver driver = new Driver();
+    static Properties configFile = new PropertiesFile("config.properties").read();
     public static void main(String[] args) {
-        new Browser().useChrome().execute((driver)-> {
-//            new Petstore(driver, "https://petstore.octoperf.com/actions/Catalog.action", properties).login().signOut().quit();
-//            new Globalsqa(driver, "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login",properties).login().quit();
-//            new Elearning(driver,"https://elearning.vanlanguni.edu.vn/",properties).login().openDashboard();
-            new Omayo(driver, "http://omayo.blogspot.com/p/page7.html", properties).downloadFile().quit();
-        });
+        new Omayo(driver.useChrome(),"http://omayo.blogspot.com/p/page7.html").downloadFile().quit();
+//            new Petstore(driver.useChrome(), "https://petstore.octoperf.com/actions/Catalog.action", configFile).login().signOut().quit();
+//            new Globalsqa(driver.useChrome(), "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login",configFile).login().quit();
+//            new Elearning(driver.useChrome(),"https://elearning.vanlanguni.edu.vn/",configFile).login().openDashboard();
     }
 }

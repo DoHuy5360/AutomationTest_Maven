@@ -1,20 +1,14 @@
 package org.example.selenium;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-import org.example.selenium.projects.school.web.Elearning;
 import org.example.selenium.utils.PrintColor;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -29,6 +23,10 @@ public class TestAction {
         this.driver = driver;
         this.webUrl = webUrl;
         this.properties = properties;
+    }
+    public TestAction(WebDriver driver, String webUrl){
+        this.driver = driver;
+        this.webUrl = webUrl;
     }
     public TestAction get(String webUrl){
         this.driver.get(webUrl);

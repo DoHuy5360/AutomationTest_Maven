@@ -1,7 +1,7 @@
 package org.example.selenium.projects;
 
 import org.example.selenium.TestAction;
-import org.example.selenium.setup.Browser;
+import org.example.selenium.setup.Driver;
 import org.example.selenium.setup.PropertiesFile;
 import org.example.selenium.utils.PrintColor;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +19,7 @@ public class GraduationProject extends TestAction{
         super(driver, webUrl, properties);
     }
     public static void main(String[] args) {
-        new Browser().useEdge().execute((driver)-> new GraduationProject(driver, webUrl, properties)
+        new Driver().useEdge().execute((driver)-> new GraduationProject(driver, webUrl, properties)
                 .login(userName, userPassword)
                 .sidebar()
                 .timeAtWork()
