@@ -61,6 +61,10 @@ public class TestAction {
         checkExisting(path).click();
         return this;
     }
+    public TestAction click(WebElement element){
+        element.click();
+        return this;
+    }
 
     public TestAction getText(String path, Consumer<String> callback){
         callback.accept(checkExisting(path).getText());
