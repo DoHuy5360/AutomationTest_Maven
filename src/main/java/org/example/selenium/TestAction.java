@@ -19,54 +19,62 @@ public class TestAction {
     public Properties properties;
     public String webUrl;
 
-    public TestAction(WebDriver driver, String webUrl, Properties properties){
+    public TestAction(WebDriver driver, String webUrl, Properties properties) {
         this.driver = driver;
         this.webUrl = webUrl;
         this.properties = properties;
     }
-    public TestAction(WebDriver driver, String webUrl){
+
+    public TestAction(WebDriver driver, String webUrl) {
         this.driver = driver;
         this.webUrl = webUrl;
     }
-    public TestAction get(String webUrl){
+
+    public TestAction get(String webUrl) {
         this.driver.get(webUrl);
         return this;
     }
-    public void quit(){
+
+    public void quit() {
         this.driver.quit();
     }
+
     public TestAction pause(long millisecond) {
         try {
             Thread.sleep(millisecond);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.printf("Something went wrong when involve pause(%d)%n", millisecond);
             e.printStackTrace();
         }
         return this;
     }
-    public WebElement checkExisting(String path){
+
+    public WebElement checkExisting(String path) {
         try {
             WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             PrintColor.yellow(String.format("Could not find %s", path));
         }
         return null;
     }
+
     public TestAction sendKeys(String path, String value) {
         checkExisting(path).sendKeys(value);
         return this;
     }
-    public TestAction click(String path){
+
+    public TestAction click(String path) {
         checkExisting(path).click();
         return this;
     }
-    public TestAction click(WebElement element){
+
+    public TestAction click(WebElement element) {
         element.click();
         return this;
     }
 
-    public TestAction getText(String path, Consumer<String> callback){
+    public TestAction getText(String path, Consumer<String> callback) {
         callback.accept(checkExisting(path).getText());
         return this;
     }
@@ -75,7 +83,8 @@ public class TestAction {
         checkExisting(path).clear();
         return this;
     }
-    public TestAction saveFile(String fileName, String xPath, String destPath)  {
+
+    public TestAction saveFile(String fileName, String xPath, String destPath) {
         try {
             // Tìm đối tượng WebElement tương ứng với nút tải về hoặc link tải về
             WebElement downloadLink = driver.findElement(By.xpath(xPath));
@@ -83,8 +92,8 @@ public class TestAction {
             // Lấy đường dẫn file cần tải về
             String fileUrlA = downloadLink.getAttribute("href");
 
-//            Path path = Paths.get(fileUrlA);
-//            String fileName = path.getFileName().toString();
+            // Path path = Paths.get(fileUrlA);
+            // String fileName = path.getFileName().toString();
 
             // Tạo đối tượng URL từ đường dẫn file
             URL url = new URL(fileUrlA);
@@ -101,7 +110,7 @@ public class TestAction {
 
             outputStream.close();
             inputStream.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return this;
@@ -128,13 +137,14 @@ public class TestAction {
         js.executeScript("arguments[0].style.outline = '2px red dashed'", element);
         return this;
     }
+
     public TestAction addCSS(String xPath, String attr, String val) {
         // Tìm đối tượng element
         WebElement element = checkExisting(xPath);
 
         // Thực thi mã JavaScript để thay đổi thuộc tính CSS
         JavascriptExecutor js = (JavascriptExecutor) this.driver;
-        js.executeScript(String.format("arguments[0].style.%s = '%s'", attr,val), element);
+        js.executeScript(String.format("arguments[0].style.%s = '%s'", attr, val), element);
         return this;
     }
 }
