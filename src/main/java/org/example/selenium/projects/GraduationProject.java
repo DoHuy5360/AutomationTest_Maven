@@ -5,7 +5,9 @@ import org.example.selenium.setup.Driver;
 import org.example.selenium.setup.PropertiesFile;
 import org.example.selenium.utils.PrintColor;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import java.util.Properties;
 
@@ -29,7 +31,14 @@ public class GraduationProject extends TestAction{
                 .quit()
         );
     }
+    // @FindBy(how = How.XPATH, using = "//input[@name='username']")
+    // public WebElement nameLogin;
+    // @FindBy(how = How.XPATH, using = "")
+    // public WebElement signInPath;
+    // @FindBy(how = How.XPATH, using = "")
+    // public WebElement signInPath;
     public GraduationProject login(String userName, String userPassword) {
+       
         PrintColor.green("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
         try {
             get(webUrl)
