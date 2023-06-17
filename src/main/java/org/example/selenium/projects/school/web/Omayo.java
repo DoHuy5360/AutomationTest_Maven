@@ -13,16 +13,18 @@ public class Omayo extends TestAction {
     public Omayo(WebDriver driver, String webUrl, Properties properties) {
         super(driver, webUrl, properties);
     }
+
     public Omayo(WebDriver driver, String webUrl) {
         super(driver, webUrl);
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(how = How.XPATH, using = "//a[text()=\"ZIP file\"]")
     public WebElement zipA;
+
     public Omayo downloadFile() {
         get(this.webUrl)
                 .click(zipA).pause(5000);
         return this;
     }
-
 }
