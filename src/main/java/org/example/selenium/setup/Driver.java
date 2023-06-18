@@ -21,7 +21,7 @@ public class Driver {
     public void execute(Consumer<WebDriver> callback){
         callback.accept(driver);
     }
-    public Driver useEdge(){
+    public WebDriver useEdge(){
         WebDriverManager webDriverManager = WebDriverManager.edgedriver();
         webDriverManager.setup();
 
@@ -55,7 +55,7 @@ public class Driver {
         System.out.println(options);
         System.out.println(System.getProperty("user.dir"));
 
-        return this;
+        return driver;
 
     }
     public Driver useFirefox(){

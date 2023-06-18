@@ -49,38 +49,57 @@ public class TestAction {
         return this;
     }
 
-    public WebElement checkExisting(String path) {
-        try {
-            WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
-        } catch (NoSuchElementException e) {
-            PrintColor.yellow(String.format("Could not find %s", path));
+    public WebElement checkExisting(WebElement element, boolean visible) {
+        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        if(visible){
+            try {
+                wait.until(ExpectedConditions.visibilityOf(element));
+                wait.until(ExpectedConditions.elementToBeClickable(element));
+                return element;
+            } catch (NoSuchElementException e) {
+                PrintColor.yellow(String.format("Could not find %s", e));
+            }
+        }else{
+            try {
+                wait.until(ExpectedConditions.invisibilityOf(element));
+                return element;
+            }catch (NoSuchElementException  e){
+                PrintColor.yellow(String.format("Could not find %s", e));
+            }
         }
-        return null;
+        return element;
     }
 
-    public TestAction sendKeys(String path, String value) {
-        checkExisting(path).sendKeys(value);
+    public TestAction sendKeys(WebElement element, String value, boolean isVisible) {
+        checkExisting(element, isVisible).sendKeys(value);
         return this;
     }
 
-    public TestAction click(String path) {
-        checkExisting(path).click();
+    public TestAction unCheck(WebElement invincibleElement,WebElement clickableElement, boolean isVisible){
+        if(checkExisting(invincibleElement, isVisible).isSelected()){
+            clickableElement.click();
+        }
         return this;
     }
 
-    public TestAction click(WebElement element) {
-        element.click();
+    public TestAction click(WebElement element, boolean isVisible) {
+        checkExisting(element, isVisible).click();
         return this;
     }
 
-    public TestAction getText(String path, Consumer<String> callback) {
-        callback.accept(checkExisting(path).getText());
+    public TestAction getText(WebElement element,boolean isVisible, Consumer<String> callback) {
+        callback.accept(checkExisting(element, isVisible).getText());
         return this;
     }
 
-    public TestAction clear(String path) {
-        checkExisting(path).clear();
+    public TestAction clear(WebElement element, boolean isVisible) {
+        checkExisting(element, isVisible).clear();
+        return this;
+    }
+    public TestAction clearThenSendKeys(WebElement element, String value, boolean isVisible) {
+        WebElement e = checkExisting(element, isVisible);
+                e.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+                e.sendKeys(value);
         return this;
     }
 
@@ -116,35 +135,25 @@ public class TestAction {
         return this;
     }
 
-    public TestAction scrollTo(String xPath) {
+    public TestAction scrollTo(WebElement element, boolean isVisible) {
         // Thực hiện scroll đến cuối trang web
         JavascriptExecutor js = (JavascriptExecutor) this.driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 
-        // Thực hiện scroll đến vị trí cụ thể trên trang web
-        WebElement element = checkExisting(xPath);
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        // Thực hiện scroll đến vị trí cụ thể trên , trang web
+        WebElement e = checkExisting(element, isVisible);
+        js.executeScript("arguments[0].scrollIntoView(true);", e);
         return this;
     }
 
-    public TestAction highlight(String xPath) {
-        // Tìm đối tượng element
-        WebElement element = checkExisting(xPath);
 
-        // Thực thi mã JavaScript để thay đổi thuộc tính CSS
-        JavascriptExecutor js = (JavascriptExecutor) this.driver;
-        js.executeScript("arguments[0].style.transition = '1000ms linear'", element);
-        js.executeScript("arguments[0].style.outline = '2px red dashed'", element);
-        return this;
-    }
-
-    public TestAction addCSS(String xPath, String attr, String val) {
-        // Tìm đối tượng element
-        WebElement element = checkExisting(xPath);
-
-        // Thực thi mã JavaScript để thay đổi thuộc tính CSS
-        JavascriptExecutor js = (JavascriptExecutor) this.driver;
-        js.executeScript(String.format("arguments[0].style.%s = '%s'", attr, val), element);
-        return this;
-    }
+//    public TestAction addCSS(String xPath, String attr, String val, boolean isVisibletượng) {
+//        // Tìm đối ,  element
+//        WebElement element = checkExisting(xPath, isVisible);
+//
+//        // Thực thi mã JavaScript để thay đổi thuộc tính CSS
+//        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+//        js.executeScript(String.format("arguments[0].style.%s = '%s'", attr, val), element);
+//        return this;
+//    }
 }
