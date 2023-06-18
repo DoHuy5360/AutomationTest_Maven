@@ -43,6 +43,9 @@ public class Exercise02 extends XpathElement {
                 .click(personalDetailMaterialStatusOptionSingle, true).pause(500)
                 .click(Objects.equals(personalDetails.getGender(), "Female") ?  personalDetailFemaleInput: personalDetailMaleInput, true)
                 .unCheck(personalDetailSmokeInput, personalDetailSmokeLabel, false)
+                .click(userTopRightDropdown, true)
+                .click(userTopRightDropdownLogout, true)
+
         ;
         return this;
     }

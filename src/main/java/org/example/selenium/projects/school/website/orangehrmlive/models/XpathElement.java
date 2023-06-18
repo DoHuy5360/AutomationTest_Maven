@@ -15,6 +15,10 @@ public class XpathElement extends TestAction {
     public XpathElement(WebDriver driver, String webUrl) {
         super(driver, webUrl);
     }
+    @FindBy(how = How.XPATH, using = "//*[@id='app']/div[1]/div[1]/header/div[1]/div[2]/ul/li/span")
+    public WebElement userTopRightDropdown;
+    @FindBy(how = How.XPATH, using = "//*[@id='app']/div[1]/div[1]/header/div[1]/div[2]/ul/li/ul/li[4]/a")
+    public WebElement userTopRightDropdownLogout;
     @FindBy(how = How.XPATH, using = "//input[@name='username']")
     public WebElement loginUserName;
     @FindBy(how = How.XPATH, using = "//input[@name='password']")
