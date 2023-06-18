@@ -45,6 +45,7 @@ public class Exercise02 extends XpathElement {
                 .unCheck(personalDetailSmokeInput, personalDetailSmokeLabel, false)
                 .click(userTopRightDropdown, true)
                 .click(userTopRightDropdownLogout, true)
+
         ;
         return this;
     }
