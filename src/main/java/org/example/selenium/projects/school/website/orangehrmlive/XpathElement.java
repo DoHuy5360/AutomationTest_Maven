@@ -1,4 +1,4 @@
-package org.example.selenium.projects.school.website.orangehrmlive.models;
+package org.example.selenium.projects.school.website.orangehrmlive;
 
 import org.example.selenium.TestAction;
 import org.openqa.selenium.WebDriver;
