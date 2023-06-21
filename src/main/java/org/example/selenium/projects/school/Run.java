@@ -1,7 +1,7 @@
 package org.example.selenium.projects.school;
 
-import org.example.selenium.projects.school.website.orangehrmlive.models.myInfo.PersonalDetails;
 import org.example.selenium.projects.school.exercises.*;
+import org.example.selenium.projects.school.website.orangehrmlive.DTO.myInfo.PersonalDetails;
 import org.example.selenium.setup.Driver;
 import org.example.selenium.setup.PropertiesFile;
 

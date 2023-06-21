@@ -1,7 +1,7 @@
 package org.example.selenium.projects.school.exercises;
 
-import org.example.selenium.projects.school.website.orangehrmlive.models.XpathElement;
-import org.example.selenium.projects.school.website.orangehrmlive.models.myInfo.PersonalDetails;
+import org.example.selenium.projects.school.website.orangehrmlive.XpathElement;
+import org.example.selenium.projects.school.website.orangehrmlive.DTO.myInfo.PersonalDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

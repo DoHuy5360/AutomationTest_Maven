@@ -1,4 +1,4 @@
-package org.example.selenium.projects.school.website.orangehrmlive.models.myInfo;
+package org.example.selenium.projects.school.website.orangehrmlive.DTO.myInfo;
 
 public class PersonalDetails {
     public String firstName;
