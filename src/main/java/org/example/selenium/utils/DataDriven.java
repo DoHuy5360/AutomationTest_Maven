@@ -2,6 +2,7 @@ package org.example.selenium.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -11,12 +12,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.example.selenium.projects.school.exercises.functionalInterface.HandleFileCallback;
 
-
 public class DataDriven {
 
     public FileInputStream file;
     public Workbook workbook;
     public Sheet sheet;
+    public String filePath;
 
     public int startRow;
     public int endRow;
@@ -31,7 +32,7 @@ public class DataDriven {
 
     }
 
-    public DataDriven openFile(String filePath) {
+    public DataDriven openFile() {
         try {
             file = new FileInputStream(new File(filePath));
             workbook = new XSSFWorkbook(file);
@@ -72,7 +73,16 @@ public class DataDriven {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            call.back(row, cell, String.format("Done at %d, %d", r, c));
+            call.back(row, cell, String.format("Fail at %d, %d", r, c));
+        }
+        return this;
+    }
+
+    public DataDriven save() {
+        try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return this;
     }
@@ -85,6 +95,11 @@ public class DataDriven {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    public DataDriven setFilePath(String filePath) {
+        this.filePath = filePath;
         return this;
     }
 

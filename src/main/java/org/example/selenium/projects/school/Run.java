@@ -13,12 +13,12 @@ public class Run {
     static Properties configFile = new PropertiesFile("config.properties").read();
 
     public static void main(String[] args) {
-//        doExercise01();
-        doExercise02();
+       doExercise03();
+        // doExercise02();
     }
 
-    public static void doExercise01() {
-
+    public static void doExercise03() {
+        new Exercise03(driver.useChrome(), "").run();
     }
 
     public static void doExercise02() {
