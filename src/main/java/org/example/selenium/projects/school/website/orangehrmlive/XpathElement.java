@@ -9,6 +9,8 @@ import org.openqa.selenium.support.How;
 import java.util.Properties;
 
 public class XpathElement extends TestAction {
+
+    public XpathElement(){};
     public XpathElement(WebDriver driver, String webUrl, Properties properties) {
         super(driver, webUrl, properties);
     }

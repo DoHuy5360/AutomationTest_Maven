@@ -61,19 +61,14 @@ public class DataDriven {
 
     public DataDriven read(HandleFileCallback call) {
         int r = startRow;
-        int c = startCol;
         try {
             for (; r < endRow; r++) {
                 row = sheet.getRow(r);
-                for (; c < endCol; c++) {
-                    cell = row.getCell(c);
-                    call.back(row, cell, String.format("Done at %d, %d", r, c));
-                }
-                c = startCol;
+                call.back(row, String.format("Done at row %d", r));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            call.back(row, cell, String.format("Fail at %d, %d", r, c));
+            call.back(row, String.format("Fail at row %d", r));
         }
         return this;
     }
