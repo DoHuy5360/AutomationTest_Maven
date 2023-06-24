@@ -18,7 +18,7 @@ public class Run {
     }
 
     public static void doExercise03() {
-        new Exercise03(driver.useChrome(), "").run();
+        new DataDrivenPractice(driver.useChrome(), "").run();
     }
 
     public static void doExercise02() {
