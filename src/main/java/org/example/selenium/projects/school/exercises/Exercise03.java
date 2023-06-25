@@ -23,7 +23,7 @@ public class Exercise03 extends XpathElement {
         this.driver = new Driver().useChrome();
         PageFactory.initElements(this.driver, this);
     }
-
+    public String result;
     @BeforeEach
     public void beforeTest() {
         driver.get(webUrl);
@@ -57,7 +57,7 @@ public class Exercise03 extends XpathElement {
     }
 
     private static Stream<Arguments> objectProvider() {
-        return Arrays.stream(PersonalDetailsE.personalDetails).map(Arguments::of);
+        return Arrays.stream(PersonalDetailsE.getPersonalDetails()).map(Arguments::of);
     }
     @AfterEach
     public void afterTest() throws InterruptedException {

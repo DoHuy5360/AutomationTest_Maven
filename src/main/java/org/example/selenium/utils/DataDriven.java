@@ -21,7 +21,8 @@ public class DataDriven {
 
     public int startRow;
     public int endRow;
-
+    public int totalRow;
+    
     public int startCol;
     public int endCol;
 
@@ -49,7 +50,8 @@ public class DataDriven {
 
     public DataDriven readRowsInRange(int from, int to) {
         startRow = from;
-        endRow = to;
+        endRow = to+1;
+        totalRow = to - from;
         return this;
     }
 
@@ -129,8 +131,10 @@ public class DataDriven {
     public Row getRow() {
         return row;
     }
-
-    public Cell getCell() {
-        return cell;
+    public int getTotalRow() {
+        return totalRow;
+    }
+    public Cell getCell(int row, int col) {
+        return sheet.getRow(row).getCell(col);
     }
 }
