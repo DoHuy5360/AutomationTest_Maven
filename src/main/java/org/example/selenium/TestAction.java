@@ -19,6 +19,8 @@ public class TestAction {
     public Properties properties;
     public String webUrl;
 
+    public TestAction(){};
+
     public TestAction(WebDriver driver, String webUrl, Properties properties) {
         this.driver = driver;
         this.webUrl = webUrl;
@@ -50,7 +52,7 @@ public class TestAction {
     }
 
     public WebElement checkExisting(WebElement element, boolean visible) {
-        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(20));
         if(visible){
             try {
                 wait.until(ExpectedConditions.visibilityOf(element));

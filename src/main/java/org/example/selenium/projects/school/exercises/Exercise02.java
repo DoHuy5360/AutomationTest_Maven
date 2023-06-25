@@ -14,7 +14,8 @@ public class Exercise02 extends XpathElement {
         PageFactory.initElements(driver, this);
     }
     public Exercise02(WebDriver driver, String webUrl) {
-        super(driver, webUrl);
+        super(driver,
+                webUrl);
         PageFactory.initElements(driver, this);
     }
 
