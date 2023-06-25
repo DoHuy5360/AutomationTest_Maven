@@ -23,7 +23,6 @@ public class Exercise03 extends XpathElement {
         this.driver = new Driver().useChrome();
         PageFactory.initElements(this.driver, this);
     }
-    public String result;
     @BeforeEach
     public void beforeTest() {
         driver.get(webUrl);
